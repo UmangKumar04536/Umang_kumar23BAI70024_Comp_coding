@@ -1,0 +1,40 @@
+class Solution {
+public:
+
+    bool check(int n, vector<int> batt,long long mid){
+        long long total=0;
+        long long required = (long long) n*mid;
+        for(long long b=0;b<batt.size();b++){
+            total+= min(mid,(long long)batt[b]);
+        }
+        if(total>= required){
+            return true;
+        }
+        return false;
+    }
+
+    long long maxRunTime(int n, vector<int>& batteries) {
+        long long sum=0;
+        long long left =1;
+        long long right = 0;
+        for(long long i=0;i<batteries.size();i++)sum+=batteries[i];
+        right =sum/ n;
+        long long ans=0;
+       // sort(batteries.begin(),batteries.end());
+
+        while(left<=right){
+            long long mid= left+(right-left)/2;
+            if(check(n,batteries,mid)){
+                left = mid+1;
+            }
+            else{
+                right =mid-1;
+            }
+        }
+
+        return right;
+
+
+
+    }
+};
